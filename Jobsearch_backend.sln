@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsearch_backend", "Jobsearch_backend\Jobsearch_backend.csproj", "{5AAF1296-D7B6-421A-ACD7-C26B3EA7B642}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "jobsearch_backend_db", "jobsearch_backend_db\jobsearch_backend_db.sqlproj", "{D642B8D2-74BE-4D47-AF75-0DDF9104E5E1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5AAF1296-D7B6-421A-ACD7-C26B3EA7B642}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AAF1296-D7B6-421A-ACD7-C26B3EA7B642}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AAF1296-D7B6-421A-ACD7-C26B3EA7B642}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AAF1296-D7B6-421A-ACD7-C26B3EA7B642}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D642B8D2-74BE-4D47-AF75-0DDF9104E5E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D642B8D2-74BE-4D47-AF75-0DDF9104E5E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D642B8D2-74BE-4D47-AF75-0DDF9104E5E1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D642B8D2-74BE-4D47-AF75-0DDF9104E5E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D642B8D2-74BE-4D47-AF75-0DDF9104E5E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D642B8D2-74BE-4D47-AF75-0DDF9104E5E1}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F7FFA287-633B-47CD-B5AE-895EC22B3FF9}
+	EndGlobalSection
+EndGlobal
