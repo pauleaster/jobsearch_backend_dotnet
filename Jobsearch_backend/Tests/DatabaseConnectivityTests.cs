@@ -1,4 +1,6 @@
 ﻿using Jobsearch_backend.Data; // Replace with the correct namespace
+using System.Diagnostics;
+
 
 namespace Jobsearch_backend.Tests
 {
@@ -13,10 +15,18 @@ namespace Jobsearch_backend.Tests
 
         public void TestDatabaseConnection()
         {
-            var jobs = _dbContext.Jobs.Select(j => j.JobId).ToList();
-            foreach (var jobId in jobs)
+            Debug.WriteLine("TestDatabaseConnection");
+            var jobs = _dbContext.Jobs.Select(j => j.JobId).Take(10).ToList();
+            if (!jobs.Any())
             {
-                Console.WriteLine(jobId);
+                Debug.WriteLine("No jobs found.");
+            }
+            else
+            {
+                foreach (var jobId in jobs)
+                {
+                    Debug.WriteLine(jobId);
+                }
             }
         }
     }
