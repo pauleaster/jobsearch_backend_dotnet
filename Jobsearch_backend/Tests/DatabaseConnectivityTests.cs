@@ -13,20 +13,18 @@ namespace Jobsearch_backend.Tests
             _dbContext = dbContext;
         }
 
-        public void TestDatabaseConnection()
+        public List<int> TestDatabaseConnection()
         {
             Debug.WriteLine("TestDatabaseConnection");
             var jobs = _dbContext.Jobs.Select(j => j.JobId).Take(10).ToList();
             if (!jobs.Any())
             {
                 Debug.WriteLine("No jobs found.");
+                return new List<int>();
             }
             else
             {
-                foreach (var jobId in jobs)
-                {
-                    Debug.WriteLine(jobId);
-                }
+                return jobs;
             }
         }
     }

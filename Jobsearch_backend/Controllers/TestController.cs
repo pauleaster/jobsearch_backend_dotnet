@@ -18,8 +18,8 @@ namespace Jobsearch_backend.Controllers
         public IActionResult TestDbConnection()
         {
             var dbTest = new DatabaseConnectivityTests(_dbContext);
-            dbTest.TestDatabaseConnection();
-            return Ok("Test completed. Check console output.");
+            var jobIdHead = dbTest.TestDatabaseConnection();
+            return Ok(jobIdHead);
         }
     }
 
