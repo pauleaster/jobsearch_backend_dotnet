@@ -1,42 +1,28 @@
 ﻿namespace Jobsearch_backend.Models
 {
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    public class Job
+    public class JobDto
     {
-        [Column("job_id")]
         public required int JobId { get; set; }
-
-        [Column("job_number")]
         public required int JobNumber { get; set; }
-
-        [Column("job_url")]
-        public required string JobUrl { get; set; }
-
-        [Column("title")]
+        public string? JobUrl { get; set; }
         public string? Title { get; set; }
-
-        [Column("comments")]
         public string? Comments { get; set; }
-
-        [Column("requirements")]
         public string? Requirements { get; set; }
-
-        [Column("follow_up")]
         public string? FollowUp { get; set; }
-
-        [Column("highlight")]
         public string? Highlight { get; set; }
-
-        [Column("applied")]
         public string? Applied { get; set; }
-
-        [Column("contact")]
         public string? Contact { get; set; }
-
-        [Column("application_comments")]
         public string? ApplicationComments { get; set; }
+
+        public override string ToString()
+        {
+            return $"JobId: {JobId}, JobNumber: {JobNumber}, JobUrl: {JobUrl}, Title: {Title}, "
+                    + $"Comments: {Comments}, Requirements: {Requirements}, FollowUp: {FollowUp}, "
+                    + $"Highlight: {Highlight}, Applied: {Applied}, Contact: {Contact}, "
+                    + $"ApplicationComments: {ApplicationComments}";
+        }
 
     }
 
+    
 }

@@ -17,10 +17,10 @@ namespace Jobsearch_backend.Tests
         {
             Debug.WriteLine("TestDatabaseConnection");
             var jobs = _dbContext.Jobs.Select(j => j.JobId).Take(10).ToList();
-            if (!jobs.Any())
+            if (jobs.Count == 0)
             {
                 Debug.WriteLine("No jobs found.");
-                return new List<int>();
+                return [];
             }
             else
             {
