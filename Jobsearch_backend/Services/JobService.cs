@@ -39,5 +39,15 @@ namespace Jobsearch_backend.Services
             Debug.WriteLine(jobDto);
             return jobDto;
         }
+        public async Task<string?> GetJobHtmlDataByIdAsync(int id)
+        {
+            // Implementation to retrieve a job by its ID
+            // Example:
+            var job = await _dbContext.Jobs.FindAsync(id);
+            if (job == null) return null;
+
+
+            return job?.JobHtml;
+        }
     }
 }

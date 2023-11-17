@@ -22,6 +22,16 @@ namespace Jobsearch_backend.Controllers
             return Ok(job);
         }
 
-        // Additional actions can be added here
+        [HttpGet("{id}/html")]
+        public async Task<IActionResult> GetJobHtmlData(int id)
+        {
+            var jobHtml = await _jobService.GetJobHtmlDataByIdAsync(id);
+            if (jobHtml == null)
+            {
+                return NotFound();
+            }
+            Debug.WriteLine(jobHtml);
+            return Content(jobHtml, "text/html");
+        }
     }
 }
