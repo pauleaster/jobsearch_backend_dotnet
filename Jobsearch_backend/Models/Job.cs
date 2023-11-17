@@ -37,6 +37,9 @@
         [Column("application_comments")]
         public string? ApplicationComments { get; set; }
 
+        [Column("job_html")]
+        public string? JobHtml { get; set; }
+
     }
 
 }
