@@ -1,17 +1,27 @@
-﻿using Jobsearch_backend.Data;
+﻿using Jobsearch_backend.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace Jobsearch_backend.Controllers
 {
-    public class JobsController : ControllerBase
+    [ApiController]
+    [Route("api/[controller]")]
+    public class JobsController(IJobService jobService) : ControllerBase
     {
-        private readonly JobsearchDbContext _dbContext;
+        private readonly IJobService _jobService = jobService;
 
-        public JobsController(JobsearchDbContext dbContext)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetJob(int id)
         {
-            _dbContext = dbContext;
+            var job = await _jobService.GetJobByIdAsync(id);
+            if (job == null)
+            {
+                return NotFound();
+            }
+            Debug.WriteLine(job);
+            return Ok(job);
         }
 
-        // Now you can use _dbContext in your controller actions
+        // Additional actions can be added here
     }
 }
