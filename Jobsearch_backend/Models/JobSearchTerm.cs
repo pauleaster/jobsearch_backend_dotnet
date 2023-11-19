@@ -1,4 +1,4 @@
-﻿/*namespace Jobsearch_backend.Models
+﻿namespace Jobsearch_backend.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,12 +8,11 @@
         public required int JobId { get; set; }
 
         [Column("term_id")]
-        public required int TermId { get; set; }
-        
+        public required int SearchTermId { get; set; }
+
         [Column("valid")]
         public required int Valid { get; set; }
 
     }
 
 }
-*/

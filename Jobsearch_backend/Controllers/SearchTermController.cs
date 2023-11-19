@@ -13,6 +13,7 @@ namespace Jobsearch_backend.Controllers
     {
         private readonly ISearchTermService _searchTermService = searchTermService;
 
+        
         [HttpGet("{SearchTermId}")]
         public async Task<IActionResult> GetSearchTerm(int SearchTermId)
         {
@@ -23,6 +24,15 @@ namespace Jobsearch_backend.Controllers
             }
             Debug.WriteLine(searchTerm);
             return Ok(searchTerm);
+        }
+
+        [Route("api/SearchTerms")]
+        [HttpGet]
+        public async Task<IActionResult> GetSearchTerms()
+        {
+            var searchTerms = await _searchTermService.GetSearchTermsAsync();
+            Debug.WriteLine(searchTerms);
+            return Ok(searchTerms);
         }
 
 

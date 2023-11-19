@@ -5,6 +5,7 @@ namespace Jobsearch_backend.Services
     public interface ISearchTermService
     {
         Task<SearchTermDto?> GetSearchTermByIdAsync(int SearchTermId);
+        Task<List<string>> GetSearchTermsAsync();
 
     }
 }

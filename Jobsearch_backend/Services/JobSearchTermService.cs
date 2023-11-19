@@ -1,18 +1,18 @@
 ﻿using System.Diagnostics;
 using Jobsearch_backend.Data;
 using Jobsearch_backend.Models;
-using Microsoft.EntityFrameworkCore;
 
 
 namespace Jobsearch_backend.Services
 {
-    public class SearchTermService(JobsearchDbContext dbContext) : ISearchTermService
+    public class JobSearchTermService(JobsearchDbContext dbContext) : IJobSearchTermService
     {
         private readonly JobsearchDbContext _dbContext = dbContext;
 
-        public async Task<SearchTermDto?> GetSearchTermByIdAsync(int SearchTermId)
+        /*public async Task<SearchTermDto?> GetSearchTermByIdAsync(int SearchTermId)
         {
-
+            // Implementation to retrieve a job by its ID
+            // Example:
             SearchTerm? searchTerm = await _dbContext.SearchTerms.FindAsync(SearchTermId);
             if (searchTerm == null) return null;
 
@@ -24,18 +24,8 @@ namespace Jobsearch_backend.Services
             };
             Debug.WriteLine(searchTermDto);
             return searchTermDto;
-        }
-
-        public async Task<List<string>> GetSearchTermsAsync()
-        {
-            List<string> results = await _dbContext.SearchTerms
-                            .OrderBy(searchTerm => searchTerm.SearchTermText)
-                            .Select(searchTerm => searchTerm.SearchTermText)
-                            .ToListAsync();
-            Debug.WriteLine(results);
-            return results;
-        }
-
+        }*/
+        
 
     }
 }
