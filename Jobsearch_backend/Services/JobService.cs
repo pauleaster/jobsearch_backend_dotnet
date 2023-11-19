@@ -1,6 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
+using static Jobsearch_backend.Models.JobAllowablePatchFields;
 using Jobsearch_backend.Data;
-using Jobsearch_backend.Models; // If JobDto is in the Models namespace
+using Jobsearch_backend.Models;
+using Jobsearch_backend.Exceptions; // If JobDto is in the Models namespace
 
 namespace Jobsearch_backend.Services
 {
@@ -13,11 +16,25 @@ namespace Jobsearch_backend.Services
             _dbContext = dbContext;
         }
 
+        public bool WriteJob( Job job, string fieldName, object fieldValue)
+        {
+            var propertyInfo = job.GetType().GetProperty(fieldName);
+            if ( propertyInfo != null && propertyInfo.CanWrite)
+            {
+                propertyInfo.SetValue(job, fieldValue, null);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public async Task<JobDto?> GetJobByIdAsync(int id)
         {
             // Implementation to retrieve a job by its ID
             // Example:
-            var job = await _dbContext.Jobs.FindAsync(id);
+            Job? job = await _dbContext.Jobs.FindAsync(id);
             if (job == null) return null;
 
             // Map the job entity to JobDto
@@ -43,11 +60,33 @@ namespace Jobsearch_backend.Services
         {
             // Implementation to retrieve a job by its ID
             // Example:
-            var job = await _dbContext.Jobs.FindAsync(id);
+            Job? job = await _dbContext.Jobs.FindAsync(id);
             if (job == null) return null;
 
 
             return job?.JobHtml;
         }
+
+        public async Task<string> PatchJobAsync(int jobId, Dictionary<string, object> patchData)
+        {
+            var job = await _dbContext.Jobs.FindAsync(jobId) ?? throw new NotFoundException("Job not found");
+            foreach (var item in patchData)
+            {
+                if (!ValidFieldAndData(item.Key, item.Value)) // Directly calling the method
+                {
+                    throw new ValidationException($"Invalid field or data type for field '{item.Key}'");
+                }
+
+                if (!WriteJob(job, item.Key, item.Value))
+                {
+                    throw new ValidationException($"Unable to update field '{item.Key}'");
+                }
+            }
+
+            await _dbContext.SaveChangesAsync();
+
+            return "Update successful";
+        }
+
     }
 }
