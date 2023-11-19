@@ -7,14 +7,9 @@ using Jobsearch_backend.Exceptions; // If JobDto is in the Models namespace
 
 namespace Jobsearch_backend.Services
 {
-    public class JobService : IJobService
+    public class JobService(JobsearchDbContext dbContext) : IJobService
     {
-        private readonly JobsearchDbContext _dbContext;
-
-        public JobService(JobsearchDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+        private readonly JobsearchDbContext _dbContext = dbContext;
 
         public bool WriteJob( Job job, string fieldName, object fieldValue)
         {
@@ -30,11 +25,11 @@ namespace Jobsearch_backend.Services
             }
         }
 
-        public async Task<JobDto?> GetJobByIdAsync(int id)
+        public async Task<JobDto?> GetJobByIdAsync(int JobId)
         {
             // Implementation to retrieve a job by its ID
             // Example:
-            Job? job = await _dbContext.Jobs.FindAsync(id);
+            Job? job = await _dbContext.Jobs.FindAsync(JobId);
             if (job == null) return null;
 
             // Map the job entity to JobDto
@@ -51,16 +46,15 @@ namespace Jobsearch_backend.Services
                 Applied = job.Applied,
                 Contact = job.Contact,
                 ApplicationComments = job.ApplicationComments,
-                // ... map other properties ...
             };
             Debug.WriteLine(jobDto);
             return jobDto;
         }
-        public async Task<string?> GetJobHtmlDataByIdAsync(int id)
+        public async Task<string?> GetJobHtmlDataByIdAsync(int JobId)
         {
             // Implementation to retrieve a job by its ID
             // Example:
-            Job? job = await _dbContext.Jobs.FindAsync(id);
+            Job? job = await _dbContext.Jobs.FindAsync(JobId);
             if (job == null) return null;
 
 
