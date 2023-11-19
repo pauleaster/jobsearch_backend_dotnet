@@ -1,4 +1,4 @@
-﻿namespace Jobsearch_backend.Models
+﻿/*namespace Jobsearch_backend.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,3 +16,4 @@
     }
 
 }
+*/

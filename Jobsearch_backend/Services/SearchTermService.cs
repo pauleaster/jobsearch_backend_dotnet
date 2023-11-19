@@ -13,14 +13,14 @@ namespace Jobsearch_backend.Services
         {
             // Implementation to retrieve a job by its ID
             // Example:
-            SearchTerm? searchTerm = await _dbContext.SearchTerm.FindAsync(SearchTermId);
+            SearchTerm? searchTerm = await _dbContext.SearchTerms.FindAsync(SearchTermId);
             if (searchTerm == null) return null;
 
             // Map the searchTerm entity to SearchTermDto
             var searchTermDto = new SearchTermDto
             {
-                TermId = searchTerm.TermId,
-                TermText = searchTerm.TermText,
+                SearchTermId = searchTerm.SearchTermId,
+                SearchTermText = searchTerm.SearchTermText,
             };
             Debug.WriteLine(searchTermDto);
             return searchTermDto;

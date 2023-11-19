@@ -5,10 +5,10 @@
     public class SearchTerm
     {
         [Column("term_id")]
-        public required int TermId { get; set; }
+        public required int SearchTermId { get; set; }
 
         [Column("term_text")]
-        public required int TermText { get; set; }
+        public required string SearchTermText { get; set; }
 
     }
 

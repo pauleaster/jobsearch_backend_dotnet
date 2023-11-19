@@ -32,6 +32,7 @@ builder.Services.AddCors(options =>
 
 // Register your custom service
 builder.Services.AddScoped<IJobService, JobService>();
+builder.Services.AddScoped<ISearchTermService, SearchTermService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

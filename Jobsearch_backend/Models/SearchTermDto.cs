@@ -2,11 +2,11 @@
 {
     public class SearchTermDto
     {
-        public required int TermId { get; set; }
-        public required int TermText { get; set; }
+        public required int SearchTermId { get; set; }
+        public required string SearchTermText { get; set; }
         public override string ToString()
         {
-            return $"TermId: {TermId}, TermText: {TermText}";
+            return $"TermId: {SearchTermId}, TermText: {SearchTermText}";
         }
 
     }

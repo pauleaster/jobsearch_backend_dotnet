@@ -1,4 +1,4 @@
-﻿namespace Jobsearch_backend.Models
+﻿/*namespace Jobsearch_backend.Models
 {
     public class JobSearchTermDto
     {
@@ -13,4 +13,4 @@
     }
 
     
-}
+}*/
