@@ -1,4 +1,6 @@
-﻿namespace Jobsearch_backend.Models
+﻿using System.Text.Json;
+
+namespace Jobsearch_backend.Models
 {
     public class JobAllowablePatchFields
     {
@@ -43,8 +45,22 @@
             {
                 return true; 
             }
-            else
-                return value.GetType() == Fields[fieldName];
+            Type expectedType = Fields[fieldName];
+
+            if (value is JsonElement jsonElement)
+            {
+                try
+                {
+                    var convertedValue = Convert.ChangeType(value, expectedType);
+                    return convertedValue != null; // Conversion was successful
+                }
+                catch
+                {
+                    return false; // Conversion failed
+                }
+            }
+
+            return value.GetType() == expectedType;
         }
 
         public static bool ValidFieldAndData(string? fieldName, object? value)

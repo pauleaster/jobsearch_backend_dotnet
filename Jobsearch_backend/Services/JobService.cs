@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using static Jobsearch_backend.Models.JobAllowablePatchFields;
+﻿using System.Diagnostics;
 using Jobsearch_backend.Data;
 using Jobsearch_backend.Models;
 using Jobsearch_backend.Exceptions; // If JobDto is in the Models namespace
@@ -10,20 +8,6 @@ namespace Jobsearch_backend.Services
     public class JobService(JobsearchDbContext dbContext) : IJobService
     {
         private readonly JobsearchDbContext _dbContext = dbContext;
-
-        public bool WriteJob( Job job, string fieldName, object fieldValue)
-        {
-            var propertyInfo = job.GetType().GetProperty(fieldName);
-            if ( propertyInfo != null && propertyInfo.CanWrite)
-            {
-                propertyInfo.SetValue(job, fieldValue, null);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
 
         public async Task<JobDto?> GetJobByIdAsync(int JobId)
         {
@@ -61,21 +45,47 @@ namespace Jobsearch_backend.Services
             return job?.JobHtml;
         }
 
-        public async Task<string> PatchJobAsync(int jobId, Dictionary<string, object> patchData)
+        public async Task<string> PatchJobAsync(int jobId, JobPatchDto patchData)
         {
             var job = await _dbContext.Jobs.FindAsync(jobId) ?? throw new NotFoundException("Job not found");
-            foreach (var item in patchData)
-            {
-                if (!ValidFieldAndData(item.Key, item.Value)) // Directly calling the method
-                {
-                    throw new ValidationException($"Invalid field or data type for field '{item.Key}'");
-                }
 
-                if (!WriteJob(job, item.Key, item.Value))
-                {
-                    throw new ValidationException($"Unable to update field '{item.Key}'");
-                }
+            if (patchData.JobUrl != null)
+            {
+                job.JobUrl = patchData.JobUrl;
             }
+            if (patchData.Title != null)
+            {
+                job.Title = patchData.Title;
+            }
+            if (patchData.Comments != null)
+            {
+                job.Comments = patchData.Comments;
+            }
+            if (patchData.Requirements != null)
+            {
+                job.Requirements = patchData.Requirements;
+            }
+            if (patchData.FollowUp != null)
+            {
+                job.FollowUp = patchData.FollowUp;
+            }
+            if (patchData.Highlight != null)
+            {
+                job.Highlight = patchData.Highlight;
+            }
+            if (patchData.Applied != null)
+            {
+                job.Applied = patchData.Applied;
+            }
+            if (patchData.Contact != null)
+            {
+                job.Contact = patchData.Contact;
+            }
+            if (patchData.ApplicationComments != null)
+            {
+                job.ApplicationComments = patchData.ApplicationComments;
+            }
+
 
             await _dbContext.SaveChangesAsync();
 
