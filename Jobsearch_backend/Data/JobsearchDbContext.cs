@@ -6,6 +6,8 @@
     public class JobsearchDbContext(DbContextOptions<JobsearchDbContext> options) : DbContext(options)
     {
         public DbSet<Job> Jobs { get; set; }
+        public DbSet<SearchTerm> SearchTerm { get; set; }
+        public DbSet<JobSearchTerm> JobSearchTerm { get; set; }
 
         // Other DbSet properties for other tables
     }
