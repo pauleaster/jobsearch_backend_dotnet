@@ -49,10 +49,6 @@ namespace Jobsearch_backend.Services
         {
             var job = await _dbContext.Jobs.FindAsync(jobId) ?? throw new NotFoundException("Job not found");
 
-            if (patchData.JobUrl != null)
-            {
-                job.JobUrl = patchData.JobUrl;
-            }
             if (patchData.Title != null)
             {
                 job.Title = patchData.Title;
