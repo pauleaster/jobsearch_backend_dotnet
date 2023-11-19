@@ -3,13 +3,8 @@
     using Jobsearch_backend.Models;
     using Microsoft.EntityFrameworkCore;
 
-    public class JobsearchDbContext : DbContext
+    public class JobsearchDbContext(DbContextOptions<JobsearchDbContext> options) : DbContext(options)
     {
-        public JobsearchDbContext(DbContextOptions<JobsearchDbContext> options)
-            : base(options)
-        {
-        }
-
         public DbSet<Job> Jobs { get; set; }
 
         // Other DbSet properties for other tables
