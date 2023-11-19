@@ -6,7 +6,7 @@ namespace Jobsearch_backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class JobsController(IJobService jobService) : ControllerBase
+    public class JobController(IJobService jobService) : ControllerBase
     {
         private readonly IJobService _jobService = jobService;
 
