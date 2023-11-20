@@ -36,6 +36,19 @@ namespace Jobsearch_backend.Services
             return results;
         }
 
+        public async Task<SearchTermString> GetCombinedSearchTermsAsync()
+        {
+            var searchTermsList = await GetSearchTermsAsync();
+            var combinedSearchTerms = new SearchTermString();
+
+            foreach (var termsString in searchTermsList)
+            {
+                combinedSearchTerms.AddTermsFromString(termsString);
+            }
+
+            return combinedSearchTerms;
+        }
+
 
     }
 }

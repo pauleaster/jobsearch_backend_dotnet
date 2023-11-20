@@ -7,7 +7,9 @@ namespace Jobsearch_backend.Services
 {
     public class JobSearchTermService(JobsearchDbContext dbContext) : IJobSearchTermService
     {
+#pragma warning disable IDE0052 // Remove unread private members
         private readonly JobsearchDbContext _dbContext = dbContext;
+#pragma warning restore IDE0052 // Remove unread private members
 
         /*public async Task<SearchTermDto?> GetSearchTermByIdAsync(int SearchTermId)
         {
@@ -25,7 +27,7 @@ namespace Jobsearch_backend.Services
             Debug.WriteLine(searchTermDto);
             return searchTermDto;
         }*/
-        
+
 
     }
 }
