@@ -11,7 +11,7 @@
         public required int SearchTermId { get; set; }
 
         [Column("valid")]
-        public required int Valid { get; set; }
+        public required bool Valid { get; set; }
 
     }
 

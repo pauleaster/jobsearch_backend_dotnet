@@ -6,6 +6,7 @@ namespace Jobsearch_backend.Services
     {
         Task<SearchTermDto?> GetSearchTermByIdAsync(int SearchTermId);
         Task<List<string>> GetSearchTermsAsync();
+        Task<SearchTermString> GetCombinedSearchTermsAsync();
 
     }
 }
