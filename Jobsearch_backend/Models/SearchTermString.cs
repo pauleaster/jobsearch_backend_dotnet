@@ -23,6 +23,15 @@
         {
             return Terms.Contains(term);
         }
+
+        private const string Delimiter = "|"; // Using the pipe symbol as a delimiter
+
+        public string ToDelimitedString()
+        {
+            // Encapsulate each term with the delimiter
+            var delimitedTerms = Terms.Select(term => $"{Delimiter}{term}{Delimiter}");
+            return string.Join("", delimitedTerms); // Join without any spaces
+        }
     }
 
 }

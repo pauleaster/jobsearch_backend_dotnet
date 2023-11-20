@@ -21,6 +21,7 @@ namespace Jobsearch_backend.Services
 
         public async Task<List<ValidJobSearchTermDto>> GetFilteredValidJobSearchTermsAsync(SearchTermString searchTermString)
         {
+            string searchTerms = searchTermString.ToDelimitedString();
 
             var validJobTerms = from j in _dbContext.Jobs
                                 join jst in _dbContext.JobSearchTerms on j.JobId equals jst.JobId
@@ -34,7 +35,7 @@ namespace Jobsearch_backend.Services
                                 };
 
             var filteredJobTerms = from vjt in validJobTerms
-                                   where searchTermString.Contains(vjt.SearchTermText)
+                                   where searchTerms.Contains(vjt.SearchTermText)
                                    select new ValidJobSearchTermDto
                                    {
                                        JobId = vjt.JobId,
