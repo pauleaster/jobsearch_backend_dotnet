@@ -8,13 +8,12 @@ using System.Diagnostics;
 namespace Jobsearch_backend.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
     public class SearchTermController(ISearchTermService searchTermService) : ControllerBase
     {
         private readonly ISearchTermService _searchTermService = searchTermService;
 
-        
-        [HttpGet("{SearchTermId}")]
+
+        [HttpGet("api/SearchTerm/{SearchTermId}")]
         public async Task<IActionResult> GetSearchTerm(int SearchTermId)
         {
             var searchTerm = await _searchTermService.GetSearchTermByIdAsync(SearchTermId);
@@ -26,8 +25,7 @@ namespace Jobsearch_backend.Controllers
             return Ok(searchTerm);
         }
 
-        [Route("api/SearchTerms")]
-        [HttpGet]
+        [HttpGet("api/SearchTerms")]
         public async Task<IActionResult> GetSearchTerms()
         {
             var searchTerms = await _searchTermService.GetSearchTermsAsync();
