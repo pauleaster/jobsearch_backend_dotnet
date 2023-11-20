@@ -1,10 +1,12 @@
-﻿namespace Jobsearch_backend.Models
+﻿using System.Diagnostics;
+
+namespace Jobsearch_backend.Models
 {
     public class SearchTermString
     {
         public List<string> Terms { get; set; } = [];
 
-        private static readonly char[] separator = [',', ' '];
+        private static readonly char[] separator = [','];
 
         // Returns terms as a single comma-separated string
         public override string ToString()
@@ -15,7 +17,8 @@
         // Adds terms from a comma-separated string
         public void AddTermsFromString(string termsString)
         {
-            var terms = termsString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            var terms = termsString.Split(separator, StringSplitOptions.RemoveEmptyEntries)
+                            .Select(term => term.Trim()); // trim whitespace from start and end of each term
             Terms.AddRange(terms);
         }
 
@@ -23,11 +26,17 @@
         {
             return Terms.Contains(term);
         }
-
-        private const string Delimiter = "|"; // Using the pipe symbol as a delimiter
-
-        public string ToDelimitedString()
+        
+        public string TermsListAsString()
         {
+            // print '[' + ', '.join(self.terms) + ']'
+            return $"[\n*{string.Join("*,\n*", Terms)}*\n]";
+        }
+        
+        public string ToDelimitedString(char Delimiter)
+        {
+            Debug.WriteLine($"\nTerms: {TermsListAsString()}\n");
+            Debug.WriteLine($"\n\nDelimiter: {Delimiter}\n\n");
             // Encapsulate each term with the delimiter
             var delimitedTerms = Terms.Select(term => $"{Delimiter}{term}{Delimiter}");
             return string.Join("", delimitedTerms); // Join without any spaces

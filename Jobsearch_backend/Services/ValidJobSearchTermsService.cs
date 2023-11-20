@@ -2,7 +2,8 @@
 using Jobsearch_backend.Data;
 using Jobsearch_backend.Models;
 using Jobsearch_backend.Exceptions;
-using Microsoft.EntityFrameworkCore; // If JobDto is in the Models namespace
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens; // If JobDto is in the Models namespace
 
 namespace Jobsearch_backend.Services
 {
@@ -21,34 +22,39 @@ namespace Jobsearch_backend.Services
 
         public async Task<List<ValidJobSearchTermDto>> GetFilteredValidJobSearchTermsAsync(SearchTermString searchTermString)
         {
-            string searchTerms = searchTermString.ToDelimitedString();
+            const char Delimiter = '|';
+            string searchTerms = searchTermString.ToDelimitedString(Delimiter);
+            Debug.WriteLine($"\n\nsearchTerms: {searchTerms}\n\n");
 
-            var validJobTerms = from j in _dbContext.Jobs
-                                join jst in _dbContext.JobSearchTerms on j.JobId equals jst.JobId
-                                join st in _dbContext.SearchTerms on jst.SearchTermId equals st.SearchTermId
-                                where jst.Valid
-                                select new
-                                {
-                                    j.JobId,
-                                    j.JobNumber,
-                                    st.SearchTermText
-                                };
+            var jobTerms = await (from j in _dbContext.Jobs
+                                  join jst in _dbContext.JobSearchTerms on j.JobId equals jst.JobId
+                                  join st in _dbContext.SearchTerms on jst.SearchTermId equals st.SearchTermId
+                                  where jst.Valid && searchTerms.Contains(Delimiter + st.SearchTermText + Delimiter)
+                                  group st.SearchTermText by new { j.JobId, j.JobNumber } into g
+                                  select new
+                                  {
+                                      JobId = g.Key.JobId,
+                                      JobNumber = g.Key.JobNumber,
+                                      MatchingSearchTerms = string.Join(", ", g.ToList())
+                                  }).ToListAsync();
 
-            var filteredJobTerms = from vjt in validJobTerms
-                                   where searchTerms.Contains(vjt.SearchTermText)
-                                   select new ValidJobSearchTermDto
-                                   {
-                                       JobId = vjt.JobId,
-                                       JobNumber = vjt.JobNumber,
-                                       MatchingSearchTerms = vjt.SearchTermText
-                                   };
+            var sortedJobTerms = jobTerms
+                .OrderByDescending(jt => jt.MatchingSearchTerms.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Length)
+                .Select(jt => new ValidJobSearchTermDto
+                {
+                    JobId = jt.JobId,
+                    JobNumber = jt.JobNumber,
+                    MatchingSearchTerms = string.Join(", ", jt.MatchingSearchTerms
+                                                            .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                                                            .Select(term => term.Trim())
+                                                            .OrderBy(term => term))
+                })
+                .ToList();
 
-            // Execution of the query
-            var filteredValidJobSearchTerms = await filteredJobTerms.ToListAsync();
-            Debug.WriteLine(filteredValidJobSearchTerms);
+            Debug.WriteLine(sortedJobTerms);
 
-
-            return filteredValidJobSearchTerms;
+            return sortedJobTerms;
         }
+
     }
 }
