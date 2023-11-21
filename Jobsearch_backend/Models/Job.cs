@@ -40,6 +40,14 @@
         [Column("job_html")]
         public string? JobHtml { get; set; }
 
+        public override string ToString()
+        {
+            return $"job_id: {JobId}, job_number: {JobNumber}, job_url: {JobUrl}, title: {Title}, "
+                                   + $"comments: {Comments}, requirements: {Requirements}, follow_up: {FollowUp}, "
+                    + $"highlight: {Highlight}, applied: {Applied}, contact: {Contact}, "
+                    + $"application_comments: {ApplicationComments}";
+        }
+
     }
 
 }

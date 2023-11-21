@@ -21,7 +21,7 @@ namespace Jobsearch_backend.Controllers
             {
                 return NotFound();
             }
-            Debug.WriteLine(searchTerm);
+            //Debug.WriteLine(searchTerm);
             return Ok(searchTerm);
         }
 
@@ -29,7 +29,7 @@ namespace Jobsearch_backend.Controllers
         public async Task<IActionResult> GetSearchTerms()
         {
             var searchTerms = await _searchTermService.GetSearchTermsAsync();
-            Debug.WriteLine(searchTerms);
+            //Debug.WriteLine(searchTerms);
             return Ok(searchTerms);
         }
 

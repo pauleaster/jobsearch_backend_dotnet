@@ -17,10 +17,11 @@ builder.Services.AddCors(options =>
 {
     // Development CORS policy
     options.AddPolicy("DevelopmentCorsPolicy",
-        builder => builder.WithOrigins("http://localhost:3001", "https://localhost:3002")
+        builder => builder //.WithOrigins("http://localhost:3001", "https://localhost:3002")
+                          .AllowAnyOrigin()
                           .AllowAnyMethod()
-                          .AllowAnyHeader()
-                          .AllowCredentials());
+                          .AllowAnyHeader());
+                          //.AllowCredentials());
 
     // Production CORS policy (more restrictive)
     options.AddPolicy("ProductionCorsPolicy",
@@ -35,6 +36,9 @@ builder.Services.AddScoped<IJobService, JobService>();
 builder.Services.AddScoped<ISearchTermService, SearchTermService>();
 builder.Services.AddScoped<IJobSearchTermService, JobSearchTermService>();
 builder.Services.AddScoped<IValidJobSearchTermsService, ValidJobSearchTermsService>();
+
+// Make sure that JSON uses Netwonsoft.Json
+builder.Services.AddControllers().AddNewtonsoftJson();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
