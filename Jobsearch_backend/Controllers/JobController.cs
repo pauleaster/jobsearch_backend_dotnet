@@ -21,7 +21,7 @@ namespace Jobsearch_backend.Controllers
             {
                 return NotFound();
             }
-            Debug.WriteLine(job);
+            //Debug.WriteLine(job);
             return Ok(job);
         }
 
@@ -33,16 +33,17 @@ namespace Jobsearch_backend.Controllers
             {
                 return NotFound();
             }
-            Debug.WriteLine(jobHtml);
+            //Debug.WriteLine(jobHtml);
             return Content(jobHtml, "text/html");
         }
 
         [HttpPatch("{JobId}")]
-        public async Task<IActionResult> PatchJob(int JobId, [FromBody] JobPatchDto jobPatchDto)
+        public async Task<IActionResult> PatchJob(int JobId, [FromBody] JobPatchFieldDto jobPatchFieldDto)
         {
             try
             {
-                string result = await _jobService.PatchJobAsync(JobId, jobPatchDto);
+                string resultMessage = await _jobService.PatchJobAsync(JobId, jobPatchFieldDto);
+                var result = new { message = resultMessage };
                 return Ok(result);
             }
             catch (NotFoundException ex)

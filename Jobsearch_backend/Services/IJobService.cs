@@ -6,6 +6,6 @@ namespace Jobsearch_backend.Services
     {
         Task<JobDto?> GetJobByIdAsync(int id);
         Task<string?> GetJobHtmlDataByIdAsync(int id);
-        Task<string> PatchJobAsync(int JobId, JobPatchDto patchData);
+        Task<string> PatchJobAsync(int JobId, JobPatchFieldDto patchData);
     }
 }

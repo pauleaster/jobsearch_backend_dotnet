@@ -24,7 +24,7 @@ namespace Jobsearch_backend.Services
         {
             const char Delimiter = '|';
             string searchTerms = searchTermString.ToDelimitedString(Delimiter);
-            Debug.WriteLine($"\n\nsearchTerms: {searchTerms}\n\n");
+            //Debug.WriteLine($"\n\nsearchTerms: {searchTerms}\n\n");
 
             var jobTerms = await (from j in _dbContext.Jobs
                                   join jst in _dbContext.JobSearchTerms on j.JobId equals jst.JobId
@@ -51,7 +51,7 @@ namespace Jobsearch_backend.Services
                 })
                 .ToList();
 
-            Debug.WriteLine(sortedJobTerms);
+            //Debug.WriteLine(sortedJobTerms);
 
             return sortedJobTerms;
         }

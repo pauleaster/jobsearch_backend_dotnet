@@ -22,7 +22,7 @@ namespace Jobsearch_backend.Services
                 SearchTermId = searchTerm.SearchTermId,
                 SearchTermText = searchTerm.SearchTermText,
             };
-            Debug.WriteLine(searchTermDto);
+            //Debug.WriteLine(searchTermDto);
             return searchTermDto;
         }
 
@@ -32,7 +32,7 @@ namespace Jobsearch_backend.Services
                             .OrderBy(searchTerm => searchTerm.SearchTermText)
                             .Select(searchTerm => searchTerm.SearchTermText)
                             .ToListAsync();
-            Debug.WriteLine(results);
+            //Debug.WriteLine(results);
             return results;
         }
 

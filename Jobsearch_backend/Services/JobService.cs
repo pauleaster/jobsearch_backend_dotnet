@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics;
 using Jobsearch_backend.Data;
 using Jobsearch_backend.Models;
-using Jobsearch_backend.Exceptions; // If JobDto is in the Models namespace
+using Jobsearch_backend.Exceptions;
+using System.ComponentModel.DataAnnotations; // If JobDto is in the Models namespace
 
 namespace Jobsearch_backend.Services
 {
@@ -31,7 +32,7 @@ namespace Jobsearch_backend.Services
                 Contact = job.Contact,
                 ApplicationComments = job.ApplicationComments,
             };
-            Debug.WriteLine(jobDto);
+            //Debug.WriteLine(jobDto);
             return jobDto;
         }
         public async Task<string?> GetJobHtmlDataByIdAsync(int JobId)
@@ -45,45 +46,46 @@ namespace Jobsearch_backend.Services
             return job?.JobHtml;
         }
 
-        public async Task<string> PatchJobAsync(int jobId, JobPatchDto patchData)
+        public async Task<string> PatchJobAsync(int jobId, JobPatchFieldDto patchData)
         {
             var job = await _dbContext.Jobs.FindAsync(jobId) ?? throw new NotFoundException("Job not found");
 
-            if (patchData.Title != null)
-            {
-                job.Title = patchData.Title;
-            }
-            if (patchData.Comments != null)
-            {
-                job.Comments = patchData.Comments;
-            }
-            if (patchData.Requirements != null)
-            {
-                job.Requirements = patchData.Requirements;
-            }
-            if (patchData.FollowUp != null)
-            {
-                job.FollowUp = patchData.FollowUp;
-            }
-            if (patchData.Highlight != null)
-            {
-                job.Highlight = patchData.Highlight;
-            }
-            if (patchData.Applied != null)
-            {
-                job.Applied = patchData.Applied;
-            }
-            if (patchData.Contact != null)
-            {
-                job.Contact = patchData.Contact;
-            }
-            if (patchData.ApplicationComments != null)
-            {
-                job.ApplicationComments = patchData.ApplicationComments;
+            Debug.WriteLine("PatchJobAsync: patchData is\n" + patchData);
+
+            switch (patchData.Field)
+            {           
+                case "Title":
+                    job.Title = patchData.Value;
+                    break;
+                case "Comments":
+                    job.Comments = patchData.Value;
+                    break;
+                case "Requirements":
+                    job.Requirements = patchData.Value;
+                    break;
+                case "Follow Up":
+                    job.FollowUp = patchData.Value;
+                    break;
+                case "Highlight":
+                    job.Highlight = patchData.Value;
+                    break;
+                case "Applied":
+                    job.Applied = patchData.Value;
+                    break;
+                case "Contact":
+                    job.Contact = patchData.Value;
+                    break;
+                case "Application Comments":
+                    job.ApplicationComments = patchData.Value;
+                    break;
+                default:
+                    throw new ValidationException("Invalid field name");
             }
 
-
+            
+            Debug.WriteLine("PatchJobAsync: updating job to\n" + job);
             await _dbContext.SaveChangesAsync();
+            Debug.WriteLine("PatchJobAsync: _dbContext.SaveChangesAsync() complete");
 
             return "Update successful";
         }

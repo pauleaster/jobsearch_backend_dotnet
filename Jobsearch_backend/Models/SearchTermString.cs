@@ -35,8 +35,8 @@ namespace Jobsearch_backend.Models
         
         public string ToDelimitedString(char Delimiter)
         {
-            Debug.WriteLine($"\nTerms: {TermsListAsString()}\n");
-            Debug.WriteLine($"\n\nDelimiter: {Delimiter}\n\n");
+            //Debug.WriteLine($"\nTerms: {TermsListAsString()}\n");
+            //Debug.WriteLine($"\n\nDelimiter: {Delimiter}\n\n");
             // Encapsulate each term with the delimiter
             var delimitedTerms = Terms.Select(term => $"{Delimiter}{term}{Delimiter}");
             return string.Join("", delimitedTerms); // Join without any spaces
