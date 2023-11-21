@@ -17,8 +17,9 @@ builder.Services.AddCors(options =>
 {
     // Development CORS policy
     options.AddPolicy("DevelopmentCorsPolicy",
-        builder => builder //.WithOrigins("http://localhost:3001", "https://localhost:3002")
-                          .AllowAnyOrigin()
+        builder => builder.WithOrigins(
+                                "http://localhost:3000"
+                                )
                           .AllowAnyMethod()
                           .AllowAnyHeader());
                           //.AllowCredentials());
@@ -59,7 +60,7 @@ else
     // Configure production-specific middleware, if any
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
