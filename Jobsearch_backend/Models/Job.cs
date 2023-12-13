@@ -36,10 +36,6 @@
 
         [Column("application_comments")]
         public string? ApplicationComments { get; set; }
-
-        [Column("job_html")]
-        public string? JobHtml { get; set; }
-
         public override string ToString()
         {
             return $"job_id: {JobId}, job_number: {JobNumber}, job_url: {JobUrl}, title: {Title}, "

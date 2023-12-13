@@ -25,18 +25,6 @@ namespace Jobsearch_backend.Controllers
             return Ok(job);
         }
 
-        [HttpGet("{JobId}/html")]
-        public async Task<IActionResult> GetJobHtmlData(int JobId)
-        {
-            var jobHtml = await _jobService.GetJobHtmlDataByIdAsync(JobId);
-            if (jobHtml == null)
-            {
-                return NotFound();
-            }
-            //Debug.WriteLine(jobHtml);
-            return Content(jobHtml, "text/html");
-        }
-
         [HttpPatch("{JobId}")]
         public async Task<IActionResult> PatchJob(int JobId, [FromBody] JobPatchFieldDto jobPatchFieldDto)
         {

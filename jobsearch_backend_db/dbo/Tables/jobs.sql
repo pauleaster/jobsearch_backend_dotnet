@@ -11,7 +11,6 @@
     [applied]              TEXT           NULL,
     [contact]              TEXT           NULL,
     [application_comments] TEXT           NULL,
-    [job_html]             NVARCHAR (MAX) NULL,
     CONSTRAINT [PK_jobs] PRIMARY KEY CLUSTERED ([job_id] ASC)
 );
 
