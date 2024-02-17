@@ -41,6 +41,10 @@ namespace Jobsearch_backend.Models
             var delimitedTerms = Terms.Select(term => $"{Delimiter}{term}{Delimiter}");
             return string.Join("", delimitedTerms); // Join without any spaces
         }
+
+        // Check if the search term string is empty
+        public bool IsEmpty => Terms == null || !Terms.Any() || Terms.All(string.IsNullOrWhiteSpace);
+
     }
 
 }

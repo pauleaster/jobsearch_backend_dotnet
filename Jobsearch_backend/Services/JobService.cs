@@ -35,16 +35,6 @@ namespace Jobsearch_backend.Services
             //Debug.WriteLine(jobDto);
             return jobDto;
         }
-        public async Task<string?> GetJobHtmlDataByIdAsync(int JobId)
-        {
-            // Implementation to retrieve a job by its ID
-            // Example:
-            Job? job = await _dbContext.Jobs.FindAsync(JobId);
-            if (job == null) return null;
-
-
-            return job?.JobHtml;
-        }
 
         public async Task<string> PatchJobAsync(int jobId, JobPatchFieldDto patchData)
         {

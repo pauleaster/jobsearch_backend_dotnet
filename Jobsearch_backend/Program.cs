@@ -27,7 +27,10 @@ builder.Services.AddCors(options =>
 
     // Production CORS policy (more restrictive)
     options.AddPolicy("ProductionCorsPolicy",
-        builder => builder.WithOrigins("https://yourproductiondomain.com")
+        builder => builder.WithOrigins(
+                                "http://localhost:3000",
+                                "https://localhost:3003"
+                                )
                           .AllowAnyMethod()
                           .AllowAnyHeader());
 });
@@ -58,6 +61,8 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseCors("ProductionCorsPolicy");
+    app.UseSwagger();
+    app.UseSwaggerUI();
     // Configure production-specific middleware, if any
 }
 
