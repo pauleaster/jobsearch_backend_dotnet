@@ -26,8 +26,12 @@ namespace Jobsearch_backend.Controllers
         {
             //Debug.WriteLine(requestDto.ToString());
             var searchTermString = new SearchTermString { Terms = requestDto.FilterTerms };
+            bool? currentJobs = requestDto.CurrentJobs;
+            bool? appliedJobs = requestDto.AppliedJobs;
 
-            var validJobSearchTerms = await _validJobSearchTermsService.GetFilteredValidJobSearchTermsAsync(searchTermString);
+            // Pass searchTermString, currentJobs, and appliedJobs to the service method
+            var validJobSearchTerms = await _validJobSearchTermsService.GetFilteredValidJobSearchTermsAsync(searchTermString, currentJobs, appliedJobs);
+
             return Ok(validJobSearchTerms);
         }
 
