@@ -6,7 +6,7 @@ namespace Jobsearch_backend.Services
     {
         Task<List<ValidJobSearchTermDto>> GetValidJobSearchTermsAsync();
 
-        Task<List<ValidJobSearchTermDto>> GetFilteredValidJobSearchTermsAsync(SearchTermString searchTerms);
+        Task<List<ValidJobSearchTermDto>> GetFilteredValidJobSearchTermsAsync(SearchTermString searchTerms, bool? currentJobs, bool ? appliedJobs);
 
     }
 }
