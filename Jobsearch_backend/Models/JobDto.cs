@@ -37,12 +37,24 @@ namespace Jobsearch_backend.Models
         [JsonProperty("application_comments")]
         public string? ApplicationComments { get; set; }
 
+        [JsonProperty("job_date")]
+        public DateTime? JobDate { get; set; }
+
+        [JsonProperty("application_date")]
+        public DateTime? ApplicationDate { get; set; }
+
+        [JsonProperty("unsuccessful")]
+        public string? Unsuccessful { get; set; }
+
         public override string ToString()
         {
-            return $"JobId: {JobId}, JobNumber: {JobNumber}, JobUrl: {JobUrl}, Title: {Title}, "
-                    + $"Comments: {Comments}, Requirements: {Requirements}, FollowUp: {FollowUp}, "
-                    + $"Highlight: {Highlight}, Applied: {Applied}, Contact: {Contact}, "
-                    + $"ApplicationComments: {ApplicationComments}";
+            return $"JobId: {JobId}, JobNumber: {JobNumber}, JobUrl: {JobUrl}, Title: {Title}, " +
+                $"Comments: {Comments}, Requirements: {Requirements}, FollowUp: {FollowUp}, " +
+                $"Highlight: {Highlight}, Applied: {Applied}, Contact: {Contact}, " +
+                $"ApplicationComments: {ApplicationComments}, " +
+                $"JobDate: {(JobDate.HasValue ? JobDate.Value.ToString("dd/MM/yyyy") : "null")}, " +
+                $"ApplicationDate: {(ApplicationDate.HasValue ? ApplicationDate.Value.ToString("dd/MM/yyyy") : "null")}, " +
+                $"Unsuccessful: {Unsuccessful}";
         }
 
     }
