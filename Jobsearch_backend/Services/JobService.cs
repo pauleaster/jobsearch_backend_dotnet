@@ -72,7 +72,7 @@ namespace Jobsearch_backend.Services
                 case "Application Comments":
                     job.ApplicationComments = patchData.Value;
                     break;
-                case "JobDate":
+                case "Job Date":
                     if (DateTime.TryParse(patchData.Value, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out DateTime jobDate))
                     {
                         job.JobDate = jobDate;
@@ -82,7 +82,7 @@ namespace Jobsearch_backend.Services
                         throw new ValidationException("Invalid JobDate format");
                     }
                     break;
-                case "ApplicationDate":
+                case "Application Date":
                     if (DateTime.TryParse(patchData.Value, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out DateTime applicationDate))
                     {
                         job.ApplicationDate = applicationDate;
