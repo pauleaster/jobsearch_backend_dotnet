@@ -2,7 +2,8 @@
 using Jobsearch_backend.Data;
 using Jobsearch_backend.Models;
 using Jobsearch_backend.Exceptions;
-using System.ComponentModel.DataAnnotations; // If JobDto is in the Models namespace
+using System.ComponentModel.DataAnnotations;
+using System.Globalization; // If JobDto is in the Models namespace
 
 namespace Jobsearch_backend.Services
 {
@@ -31,6 +32,9 @@ namespace Jobsearch_backend.Services
                 Applied = job.Applied,
                 Contact = job.Contact,
                 ApplicationComments = job.ApplicationComments,
+                JobDate = job.JobDate,
+                ApplicationDate = job.ApplicationDate,
+                Unsuccessful = job.Unsuccessful,
             };
             //Debug.WriteLine(jobDto);
             return jobDto;
@@ -67,6 +71,29 @@ namespace Jobsearch_backend.Services
                     break;
                 case "Application Comments":
                     job.ApplicationComments = patchData.Value;
+                    break;
+                case "Job Date":
+                    if (DateTime.TryParse(patchData.Value, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out DateTime jobDate))
+                    {
+                        job.JobDate = jobDate;
+                    }
+                    else
+                    {
+                        throw new ValidationException("Invalid JobDate format");
+                    }
+                    break;
+                case "Application Date":
+                    if (DateTime.TryParse(patchData.Value, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out DateTime applicationDate))
+                    {
+                        job.ApplicationDate = applicationDate;
+                    }
+                    else
+                    {
+                        throw new ValidationException("Invalid ApplicationDate format");
+                    }
+                    break;
+                case "Unsuccessful":
+                    job.Unsuccessful = patchData.Value;
                     break;
                 default:
                     throw new ValidationException("Invalid field name");
